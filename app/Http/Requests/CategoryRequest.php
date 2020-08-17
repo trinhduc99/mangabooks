@@ -26,7 +26,6 @@ class CategoryRequest extends FormRequest
         return [
             'name' => 'required|unique:categories|min:5|max:255',
             'parent_id' =>'required'
-
         ];
     }
 

@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Components\Recursive;
 use App\Http\Requests\CategoryRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateCategory;
+use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Str;
+use DataTables;
+use Redirect, Response;
 
 class CategoryController extends Controller
 {
+    use DeleteModelTrait;
     private $category;
 
     public function __construct(Category $category)
@@ -17,10 +21,9 @@ class CategoryController extends Controller
         $this->category = $category;
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        dd($request->session()->all());
-        $categories = $this->category->latest()->paginate(5);
+        $categories = $this->category->all();
         return view('admin.category.index', compact('categories'));
     }
 
@@ -32,11 +35,16 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $categoryRequest)
     {
-        $this->category->create([
+        $category = $this->category->create([
             'name' => $categoryRequest->name,
             'parent_id' => $categoryRequest->parent_id,
             'slug' => Str::slug($categoryRequest->name)
         ]);
+        if ($category) {
+            alert()->success('Category Created', 'Successfully');
+        } else {
+            alert()->error('Category Created', 'Something went wrong!');
+        }
         return redirect()->route('categories.index');
     }
 
@@ -47,35 +55,31 @@ class CategoryController extends Controller
         return view('admin.category.edit', compact('htmlOptions', 'category'));
     }
 
-    public function update(CategoryRequest $categoryRequest, $id)
+    public function show($id)
     {
-        $this->category->find($id)->update([
+        $category = $this->category->find($id);
+        return view('admin.category.show', compact('category'));
+    }
+
+    public function update(UpdateCategory $categoryRequest, $id)
+    {
+
+        $category = $this->category->find($id)->update([
             'name' => $categoryRequest->name,
             'parent_id' => $categoryRequest->parent_id,
             'slug' => Str::slug($categoryRequest->name)
         ]);
-        return redirect()->route('categories.index');
-    }
-
-    public function delete($id)
-    {
-        $this->category->findOrFail($id)->delete();
-        return redirect()->route('categories.index');
-    }
-
-    public function search(Request $request)
-    {
-        $key_word_search = $request->key_word_search;
-        $category = $this->category
-            ->where('name', 'like', '%' . $key_word_search . '%');
-        if ($category->exists()) {
-            $categories = $category->latest()->paginate(5);
-            return view('admin.category.search', compact('categories'));
+        if ($category) {
+            alert()->success('Category Updated', 'Successfully');
         } else {
-            return view('admin.category.notfound');
+            alert()->error('Category Updated', 'Something went wrong!');
         }
+        return redirect()->route('categories.index');
+    }
 
-
+    public function delete($id, Category $category)
+    {
+        return $this->deleteModelTrait($id, $category);
     }
 
     public function getCategory($parentId)

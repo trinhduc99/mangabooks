@@ -16,12 +16,16 @@ Route::prefix('categories')->group(function () {
     Route::post('/store', [
         'as' => 'categories.store',
         'uses' => 'CategoryController@store',
-
     ]);
     Route::get('/edit/{id}', [
         'as' => 'categories.edit',
         'uses' => 'CategoryController@edit',
         'middleware' => 'can:category-edit'
+    ]);
+    Route::get('/show/{id}', [
+        'as' => 'categories.show',
+        'uses' => 'CategoryController@show',
+        'middleware' => 'can:category-show'
     ]);
     Route::post('/update/{id}', [
         'as' => 'categories.update',
@@ -31,10 +35,5 @@ Route::prefix('categories')->group(function () {
         'as' => 'categories.delete',
         'uses' => 'CategoryController@delete',
         'middleware' => 'can:category-delete'
-    ]);
-    Route::post('/search', [
-        'as' => 'categories.search',
-        'uses' => 'CategoryController@search',
-
     ]);
 });

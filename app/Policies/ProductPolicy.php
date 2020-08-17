@@ -25,7 +25,6 @@ class ProductPolicy
      * Determine whether the user can view the model.
      *
      * @param User $user
-     * @param \App\Product $product
      * @return mixed
      */
     public function view(User $user)
@@ -70,6 +69,25 @@ class ProductPolicy
     }
 
     /**
+     * Determine whether the user can show the model.
+     *
+     * @param User $user
+     * @param $id
+     * @return mixed
+     */
+    public function show(User $user, $id)
+    {
+        $product = Product::find($id);
+        if ($user->role === 'admin') {
+            return true;
+        }
+        if ($user->id === $product->user_id) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param User $user
@@ -92,7 +110,7 @@ class ProductPolicy
      * Determine whether the user can restore the model.
      *
      * @param User $user
-     * @param \App\Product $product
+     * @param Product $product
      * @return mixed
      */
     public function restore(User $user, Product $product)
@@ -104,7 +122,7 @@ class ProductPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param User $user
-     * @param \App\Product $product
+     * @param Product $product
      * @return mixed
      */
     public function forceDelete(User $user, Product $product)

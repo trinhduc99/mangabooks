@@ -6,12 +6,6 @@
     <link rel="stylesheet" href="{{asset('admins/product/add.css')}}">
     <link rel="stylesheet" href="{{asset('admins/product/edit.css')}}">
 @endsection
-@section('search')
-    {{route('products.search')}}
-@endsection
-@section('link')
-    {{route('products.index')}}
-@endsection
 @section('contents')
     <div class="content-wrapper">
         <div class="col-md-12">
@@ -34,7 +28,6 @@
                                 @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
-
                             </div>
                             <div class="form-group">
                                 <label>Name Author</label>
@@ -51,15 +44,20 @@
                             <div class="form-group">
                                 <label>Avatar Book</label>
                                 <input type="file"
+                                       id="profile-img"
                                        name="feature_image_path"
                                        class="form-control @error('feature_image_path') is-invalid @enderror"
                                 >
                                 @error('feature_image_path')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
+                                <br>
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <img src="{{$product->image_path}}" alt="{{$product->image_name}}" class="product_image_150_100">
+                                        <img src="{{$product->image_path}}"
+                                             id="profile-img-tag"
+                                             alt="{{$product->image_name}}"
+                                             class="product_image_150_100">
                                     </div>
                                 </div>
                             </div>
@@ -77,8 +75,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Insert Content</label>
-                                <textarea name="contents"
-                                          class="form-control @error('contents') is-invalid @enderror" rows="5">{{$product->content}}</textarea>
+                                <textarea name="contents" id="ckeditor1"
+                                          class="form-control @error('contents') is-invalid @enderror" rows="5">{!! $product->content !!}</textarea>
                             </div>
                             @error('contents')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -93,6 +91,25 @@
         </form>
 
     </div>
+@endsection
+@section('js')
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace('ckeditor1');
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profile-img-tag').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#profile-img").change(function(){
+            readURL(this);
+        });
+    </script>
 @endsection
 
 

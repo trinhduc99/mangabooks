@@ -5,16 +5,10 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('admins/category/add.css')}}">
 @endsection
-@section('search')
-    {{route('categories.search')}}
-@endsection
-@section('link')
-    {{route('categories.index')}}
-@endsection
+
 @section('contents')
     <div class="content-wrapper">
         @include('partials.content-header',['name'=>'Category Book','key'=>'Add'])
-
         <div class="content">
             <div class="container-fluid">
                 <div class="row">

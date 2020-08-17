@@ -26,7 +26,7 @@ class ProductRequest extends FormRequest
         return [
             'name' => 'required|string|min:5|max:255',
             'name_author' => 'required|string|min:5|max:255',
-            'feature_image_path' => 'required',
+            'feature_image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required',
             'contents' => 'required|string|min:10|'
         ];
@@ -36,14 +36,15 @@ class ProductRequest extends FormRequest
     {
         return [
             'name.required' => 'The name field is required.',
-            'name.unique' => 'The name field is unique',
             'name.max' => 'The name can\'t be more 255 characters',
             'name.min' => 'The name can\'t be less 5 characters',
             'name_author.required' => 'The name field is required.',
-            'name_author.unique' => 'The name field is unique',
             'name_author.max' => 'The name can\'t be more 255 characters',
             'name_author.min' => 'The name can\'t be less 5 characters',
-            'feature_image_path' => 'Image is required',
+            'feature_image_path.required' => 'Image is required',
+            'feature_image_path.image' => 'Image is image',
+            'feature_image_path.mimes' => 'Image is mimes:jpeg,png,jpg,gif,svg',
+            'feature_image_path.max' => 'Image is max:2048',
             'category_id' => 'Category is required',
             'contents.required' => 'Category Parent is required',
             'contents.min' => 'The name can\'t be less 10 characters',

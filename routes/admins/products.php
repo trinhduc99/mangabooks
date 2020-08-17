@@ -22,6 +22,11 @@ Route::prefix('products')->group(function () {
         'uses' => 'ProductController@edit',
         'middleware' => 'can:product-edit,id'
     ]);
+    Route::get('/show/{id}', [
+        'as' => 'products.show',
+        'uses' => 'ProductController@show',
+        'middleware' => 'can:product-show,id'
+    ]);
     Route::post('/update/{id}', [
         'as' => 'products.update',
         'uses' => 'ProductController@update',
@@ -31,9 +36,4 @@ Route::prefix('products')->group(function () {
         'uses' => 'ProductController@delete',
         'middleware' => 'can:product-delete,id'
     ]);
-    Route::post('/search', [
-        'as' => 'products.search',
-        'uses' => 'ProductController@search',
-    ]);
-
 });

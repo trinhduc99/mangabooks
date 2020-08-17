@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Components\Recursive;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\UpdateProduct;
 use App\Product;
-use Illuminate\Http\Request;
+use App\Traits\DeleteModelTrait;
 use App\Traits\StorageImageTrait;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
     use StorageImageTrait;
+    use DeleteModelTrait;
 
     public function index()
     {
-        $products = Product::orderby('user_id', 'desc')->paginate(5);
+        $products = Product::all();
         return view('admin.product.index', compact('products'));
     }
 
@@ -30,41 +31,48 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $dataProductCreate = $this->insertDataProduct($request);
-        Product::create($dataProductCreate);
+        $product = Product::create($dataProductCreate);
+        if ($product) {
+            alert()->success('Product Created', 'Successfully');
+        } else {
+            alert()->error('Product Created', 'Something went wrong!');
+        }
         return redirect()->route('products.index');
     }
 
     public function edit($id)
     {
         $product = Product::find($id);
-        $htmlOptions = $this->getCategory($product->category_id);
+        $htmlOptions = $this->getCategory($parentId = '');
         return view('admin.product.edit', compact('htmlOptions', 'product'));
     }
 
-    public function update(ProductRequest $request, $id)
+    public function show($id)
+    {
+        $product = Product::find($id);
+        if (isset($product->category->name)) {
+            $category = $product->category->name;
+        } else {
+            $category = "";
+        }
+        return view('admin.product.show', compact('category', 'product'));
+    }
+
+    public function update(UpdateProduct $request, $id)
     {
         $dataProductCreate = $this->insertDataProduct($request);
-        Product::find($id)->update($dataProductCreate);
-        return redirect()->route('products.index');
-    }
-
-    public function delete($id)
-    {
-        Product::findOrFail($id)->delete();
-        return redirect()->route('products.index');
-    }
-
-    public function search(Request $request)
-    {
-        $keyWordSearch = $request->key_word_search;
-        $product = Product::where('name', 'like', '%' . $keyWordSearch . '%')
-            ->orWhere('name_author', 'like', '%' . $keyWordSearch . '%');
-        if ($product->exists()) {
-            $products = $product->orderby('user_id', 'asc')->paginate(5);
-            return view('admin.product.search', compact('products'));
+        $product = Product::find($id)->update($dataProductCreate);
+        if ($product) {
+            alert()->success('Product Updated', 'Successfully');
         } else {
-            return view('admin.product.notfound');
+            alert()->error('Product Updated', 'Something went wrong!');
         }
+        return redirect()->route('products.index');
+    }
+
+    public function delete($id, Product $product)
+    {
+        return $this->deleteModelTrait($id, $product);
     }
 
     public function insertDataProduct($request)
@@ -86,7 +94,6 @@ class ProductController extends Controller
         } catch (\Exception $exception) {
             Log::error('Message: ' . $exception->getMessage() . ' ------Line: ' . $exception->getLine());
         }
-
     }
 
     public function getCategory($parentId)
