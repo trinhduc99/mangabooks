@@ -17,7 +17,6 @@
         "laravel/ui": "^2.1",
         "nesbot/carbon": "^2.38",
         "realrashid/sweet-alert": "^3.1",
-        "spatie/laravel-medialibrary": "^7.0.0",
         "yajra/laravel-datatables-oracle": "^9.10"
     },
     "require-dev": {

@@ -43,7 +43,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $htmlOptions = $this->getCategory($parentId = '');
+        $htmlOptions = $this->getCategory($product->category_id);
         return view('admin.product.edit', compact('htmlOptions', 'product'));
     }
 

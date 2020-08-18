@@ -1,3 +1,4 @@
+@extends('layouts.app')
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="" class="brand-link">
         <img src="{{asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
@@ -34,14 +35,14 @@
                 </li>
                 <li class="nav-item has-treeview">
                     @can('user-list')
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="fa-fw fas fa-cog">
-                        </i>
-                        <p>
-                            <span>User Management</span>
-                            <i class="right fa fa-fw fa-angle-left"></i>
-                        </p>
-                    </a>
+                        <a class="nav-link nav-dropdown-toggle" href="#">
+                            <i class="fa-fw fas fa-cog">
+                            </i>
+                            <p>
+                                <span>User Management</span>
+                                <i class="right fa fa-fw fa-angle-left"></i>
+                            </p>
+                        </a>
                     @endcan
                     <ul class="nav nav-treeview">
                         @can('user-list')
@@ -73,16 +74,21 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item" >
-                    <a href="" class="nav-link"
-                       id="logout"
-                      >
-                        <p>
-                            <i class="fas fa-fw fa-sign-out-alt">
-                            </i>
-                            <span>Log out</span>
-                        </p>
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{{ route('logout') }}"
+                       id="logout">
+                    <p>
+                        <i class="fas fa-fw fa-sign-out-alt">
+                        </i>
+                        <span>Log out</span>
+                    </p>
                     </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                          style="display: none;">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </nav>

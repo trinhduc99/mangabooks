@@ -65,7 +65,7 @@
                                 <label>Choose Category</label>
                                 <select class="form-control  @error('category_id') is-invalid @enderror" name="category_id">
                                     <option value="">Choose Category</option>
-                                    {!! $htmlOptions  !!}
+                                    {!!$htmlOptions!!}
                                 </select>
                                 @error('category_id')
                                 <div class="alert alert-danger">{{ $message }}</div>

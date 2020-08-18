@@ -15,7 +15,6 @@ class  Recursive
 
     public function categoryRecursive($parentId, $id = 0, $text = '')
     {
-
         foreach ($this->data as $value) {
             if ($value['parent_id'] == $id) {
                 if (!empty($parentId) && $parentId == $value['id']) {

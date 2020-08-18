@@ -22,12 +22,12 @@
                                 <th width="5%">
                                     Number
                                 </th>
-                                <th scope="col" width="5%">Name</th>
-                                <th scope="col" width="10%">Name Author</th>
-                                <th scope="col" width="10%">Image</th>
+                                <th scope="col" width="10%">Name</th>
+                                <th scope="col" width="20%">Name Author</th>
+                                <th scope="col" width="20%">Image</th>
                                 <th scope="col" width="10%">Category</th>
                                 <th scope="col" width="30%">Content</th>
-                                <th scope="col" width="30%">Action</th>
+                                <th scope="col" width="10%">Action</th>
                             </tr>
                             </thead>
                             <tbody>
