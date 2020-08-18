@@ -74,11 +74,6 @@ class CategorySeeder extends Seeder
                 'slug' => Str::slug('Khoa hoc 1'),
             ],
             [
-                'name' => 'Khoa hoc 1',
-                'parent_id' => 2,
-                'slug' => Str::slug('Khoa hoc 1'),
-            ],
-            [
                 'name' => 'Khoa hoc 2',
                 'parent_id' => 2,
                 'slug' => Str::slug('Khoa hoc 2'),

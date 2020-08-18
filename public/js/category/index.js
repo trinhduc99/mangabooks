@@ -21,7 +21,7 @@ function actionDelete(event) {
     let that = $(this);
     Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: "Data category children and product relationship will deleted!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -35,6 +35,9 @@ function actionDelete(event) {
                 success: function (data) {
                     if (data.code == 200) {
                         that.parent().parent().remove();
+                        setTimeout(function(){// wait for 5 secs(2)
+                            location.reload(); // then reload the page.(3)
+                        }, 3000);
                         Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',

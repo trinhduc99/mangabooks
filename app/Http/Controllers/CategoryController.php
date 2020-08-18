@@ -6,10 +6,12 @@ use App\Category;
 use App\Components\Recursive;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\UpdateCategory;
+use App\Product;
 use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Redirect;
 use DataTables;
-use Redirect, Response;
+use Response;
 
 class CategoryController extends Controller
 {
@@ -79,6 +81,8 @@ class CategoryController extends Controller
 
     public function delete($id, Category $category)
     {
+        Product::where('category_id',$id)->delete();
+        Category::where('parent_id',$id)->delete();
         return $this->deleteModelTrait($id, $category);
     }
 
