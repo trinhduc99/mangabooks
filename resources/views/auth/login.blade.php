@@ -11,16 +11,6 @@
 
                 <div class="signin-form">
                     <h2 class="form-title">Sign up</h2>
-                    {{--                    @if(session('error'))--}}
-                    {{--                        <div class="alert alert-danger">--}}
-                    {{--                            {{session('error')}}--}}
-                    {{--                        </div>--}}
-                    {{--                    @endif--}}
-                    {{--                    @if(session('success'))--}}
-                    {{--                        <div class="alert alert-danger">--}}
-                    {{--                            {{session('success')}}--}}
-                    {{--                        </div>--}}
-                    {{--                    @endif--}}
                     <form action="{{ route('login') }}" method="POST" class="register-form" id="login-form">
                         @csrf
                         <div class="form-group">
@@ -65,14 +55,15 @@
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Log in"/>
                         </div>
                     </form>
-                    <div class="social-login">
-                        <span class="social-label">Or login with</span>
-                        <ul class="socials">
-                            <li><a href="#" onclick="alert('Hi hi Đã bị lừa')"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                            <li><a href="#" onclick="alert('Hi hi Đã bị lừa')"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                            <li><a href="#" onclick="alert('Hi hi Đã bị lừa')"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-                        </ul>
-                    </div>
+{{--                    <div class="social-login">--}}
+{{--                        <span class="social-label">Or login with</span>--}}
+{{--                        <ul class="socials">--}}
+{{--                            <li><a href="{{ url('auth/facebook') }}" ><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>--}}
+{{--                            <li><a href="" ><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>--}}
+{{--                            <li><a href="" ><i class="display-flex-center zmdi zmdi-github"></i></a></li>--}}
+{{--                            <li><a href="" ><i class="display-flex-center zmdi zmdi-google"></i></a></li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>

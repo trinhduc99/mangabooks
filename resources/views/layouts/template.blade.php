@@ -7,10 +7,15 @@
     <title>Registration Form</title>
 
     <!-- Font Icon -->
-    <link rel="stylesheet" href="{{asset('fonts/material-icon/css/material-design-iconic-font.min.css')}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <!-- Main css -->
     <link rel="stylesheet" href="{{asset('css/admin/style.css')}}">
+    <style>
+        i.display-flex-center.zmdi.zmdi-github {
+            background-color: black;
+        }
+    </style>
 </head>
 <body>
 
